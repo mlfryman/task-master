@@ -14,7 +14,9 @@
     "url": "https://github.com/mlfryman/task-master"
   },
   "author": "Melanie Fryman <melanie@frymanet.com>",
-  "contributors": ["Logan Richardson <g.logan.richardson@gmail.com>"],
+  "contributors": [
+    "Logan Richardson <g.logan.richardson@gmail.com>"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mlfryman/task-master/issues"
@@ -29,7 +31,8 @@
     "lodash": "^2.4.1",
     "mongodb": "^1.4.8",
     "morgan": "^1.2.2",
-    "supervisor": "^0.6.0"
+    "supervisor": "^0.6.0",
+    "tablesort": "^1.6.4"
   },
   "devDependencies": {
     "blanket": "^1.1.6",

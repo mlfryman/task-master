@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 var Mongo = require('mongodb');
-var async = require('async');
-var Priority = require('./priority');
+//var async = require('async');
+//var Priority = require('./priority');
 
 Object.defineProperty(Task, 'collection', {
   get: function(){return global.mongodb.collection('tasks');}
@@ -44,10 +44,11 @@ Task.deleteById = function(id, cb){
   Task.collection.findAndRemove({_id:_id}, cb);
 };
 
-Task.count = function(query, cb){
+Task.pgCount = function(query, cb){
   var filter = {};
   if(query.filter){filter = {tags:{$in:[query.filter]}};}
   Task.collection.count(filter, function(err, count){
+    count = Math.ceil(count / 3);
     cb(count);
   });
 };

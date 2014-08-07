@@ -124,10 +124,10 @@ describe('Task', function(){
     });
   });
 
-  describe('.count', function(){
+  describe('.pgCount', function(){
     it('should count all tasks in collection', function(done){
-      Task.count({}, function(count){
-        expect(count).to.equal(6);
+      Task.pgCount({}, function(count){
+        expect(count).to.equal(2);
         done();
       });
     });

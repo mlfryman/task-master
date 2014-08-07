@@ -113,17 +113,6 @@ describe('Task', function(){
     });
   });
 
-  describe('.deleteById', function(){
-    it('should delete a task by its id', function(done){
-      Task.deleteById(t1._id.toString(), function(){
-        Task.all(function(tasks){
-          expect(tasks).to.have.length(5);
-          done();
-        });
-      });
-    });
-  });
-
   describe('.pgCount', function(){
     it('should count all tasks in collection', function(done){
       Task.pgCount({}, function(count){

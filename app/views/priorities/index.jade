@@ -1,0 +1,16 @@
+extends ../shared/template
+block content
+  h1 Priorities
+  #prioritiesindex
+    table
+      thead
+        tr
+          th Name
+          th Color
+          th Value
+      tbody
+        each priority in priorities
+          tr
+            td= priority.name
+            td(style='background-color:#{priority.color}')
+            td= priority.value

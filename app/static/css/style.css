@@ -1,0 +1,66 @@
+h1 {
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+h2 {
+  text-align: center;
+  color: white;
+  background-color: black;
+}
+
+body {
+  background-color: #FFDBAA;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+a:link, a:visited {
+    display: block;
+    width: 100%;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    text-align: center;
+    padding: 4px;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:hover, a:active {
+    background-color: #red;
+}
+
+table {
+    width: 50%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: black;
+    color: white;
+    height: 25px;
+}
+
+td {
+    height: 25px;
+    vertical-align: center;
+    text-align: center;
+    padding: 15px;
+    width: 100px;
+    color: white;
+    background-color: black;
+}
+
+table, td, th {
+    border: 1px solid white;
+}

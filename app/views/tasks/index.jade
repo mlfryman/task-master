@@ -1,0 +1,41 @@
+extends ../shared/template
+block content
+  #taskindex
+    h1 Tasks
+    table.table.table-hover.table-bordered
+      thead
+        tr
+          th Name
+          th: a(href='/tasks?sortBy=due#{query.filter ? "&filter=" + query.filter : ""}') Due
+          th Photo
+          th: a(href='/tasks?sortBy=isComplete#{query.filter ? "&filter=" + query.filter : ""}') Completed
+          th Tags
+          th Priority
+      tbody
+        each task in tasks
+          tr
+            td= task.name
+            td= moment(task.due).format('ll')
+              br
+              |(#{moment(task.due).fromNow()})
+            td: img(src='#{task.photo}', width='100px', height='100px')
+            td
+              //- form(method="post" action="/tasks/#{task._id}/update?#{((query.sortBy) ? '&sortBy=' + query.sortBy : '') + ((query.filter) ? '&filter=' + query.filter : '') + ((query.page) ? '&page=' + query.page : '')}")
+              form(method='post', action='/tasks/#{task._id}/update')
+                if task.isComplete
+                  input(type="checkbox", name="completed", value="true", checked)
+                else
+                  input(type="checkbox", name="completed", value="true")
+                button Update
+            td
+              each tag in task.tags
+                a(href="/tasks?filter=#{tag + ((query.sortBy) ? '&sortBy=' + query.sortBy : '')}") #{tag}
+            td.item(style="background-color:#{task.priority.color}")= task.priority.name
+    #pages
+      ul
+        - var page = 1
+        while count
+          li
+            a(href="/tasks?page=#{page + ((query.sortBy) ? '&sortBy=' + query.sortBy : '') + ((query.filter) ? '&filter=' + query.filter : '')}") Page #{page}
+            - count--
+            - page++

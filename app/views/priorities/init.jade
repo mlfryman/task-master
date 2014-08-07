@@ -1,0 +1,17 @@
+extends ../shared/template
+block content
+  h1 Add New Priority
+  #newpriority
+    form(method='post', action='/priorities')
+      table
+        tr
+          td: label Name: 
+          td: input(type='text', name='name', placeholder='What is the urgency?')
+        tr
+          td: label Color: 
+          td: input(type='color', name='color', value='#ff851b')
+        tr
+          td: label Value: 
+          td: input(type='number', name='value', placeholder='High number, high importance')
+        tr
+          td(colspan='2'): button Add Priority

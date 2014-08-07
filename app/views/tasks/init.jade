@@ -1,0 +1,25 @@
+extends ../shared/template
+block content
+  h2 Add a Task
+  #newTask
+    form(method="post", action="/tasks")
+      table
+        tr
+          td: label Name:
+          td: input(type='text', name='name', placeholder='GitHub')
+        tr
+          td: label Priority:
+          td: select(name='priorityId')
+            each priority in priorities
+              option(value='#{priority._id}' style='background-color:#{priority.color}') #{priority.name}
+        tr
+          td: label Photo URL:
+          td: input(type='text', name='photo', placeholder='http://image.jpg')
+        tr
+          td: label Due:
+          td: input(type='date', name='due', value='#{new Date()}')
+        tr
+          td: label Tags:
+          td: input(type='text', name='tags', placeholder='bills, web service, work')
+        tr
+          td(colspan='2'): button Add Task

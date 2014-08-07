@@ -39,11 +39,6 @@ Task.findById = function(id, cb){
   });
 };
 
-Task.deleteById = function(id, cb){
-  var _id = Mongo.ObjectID(id);
-  Task.collection.findAndRemove({_id:_id}, cb);
-};
-
 Task.pgCount = function(query, cb){
   var filter = {};
   if(query.filter){filter = {tags:{$in:[query.filter]}};}
@@ -62,6 +57,10 @@ Task.update = function(id, obj, cb){
 Task.find3 = function(query, cb){
   var options = {limit:3}, filter = {};
   if(query.filter){filter = {tags:{$in:[query.filter]}};}
+  if(query.sortBy){
+    var sort = (query.order === 'asc') ? -1 : 1;
+    options.sort = [[query.sortBy,sort]];
+  }
   if(query.page){
     options.skip = ((query.page * 1) - 1) * 3;
   }

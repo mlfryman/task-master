@@ -2,8 +2,8 @@
 
 var _ = require('lodash');
 var Mongo = require('mongodb');
-//var async = require('async');
-//var Priority = require('./priority');
+var async = require('async');
+var Priority = require('./priority');
 
 Object.defineProperty(Task, 'collection', {
   get: function(){return global.mongodb.collection('tasks');}
@@ -59,7 +59,26 @@ Task.update = function(id, obj, cb){
   Task.collection.update({_id:_id}, {$set:{isComplete:val}}, cb);
 };
 
-
+Task.find3 = function(query, cb){
+  var options = {limit:3}, filter = {};
+  if(query.filter){filter = {tags:{$in:[query.filter]}};}
+  if(query.page){
+    options.skip = ((query.page * 1) - 1) * 3;
+  }
+  //console.log(filter, options);
+  Task.collection.find(filter, options).toArray(function(err, objs){
+    var tasks = objs.map(function(o){return changePrototype(o);});
+    async.map(tasks, function(task, done){
+      Priority.findById(task.priorityId, function(priority){
+        task.priority = priority;
+        done(null, task);
+      });
+    }, function(err, newTasks){
+      //console.log(newTasks);
+      cb(newTasks);
+    });
+  });
+};
 
 module.exports = Task;
 

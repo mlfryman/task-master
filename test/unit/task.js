@@ -132,6 +132,23 @@ describe('Task', function(){
       });
     });
   });
-  // Last Braces //
+
+  describe('.find3', function(){
+    it('should return first 3 tasks from database', function(done){
+      Task.find3({}, function(tasks){
+        expect(tasks).to.have.length(3);
+        expect(tasks[0].priority.name).to.equal('high');
+        done();
+      });
+    });
+    it('should return last 3 tasks from database', function(done){
+      Task.find3({page:'2'}, function(tasks){
+        expect(tasks).to.have.length(3);
+        expect(tasks[0].name).to.equal('banfield');
+        done();
+      });
+    });
+  });
+// Last Braces //
 });
 

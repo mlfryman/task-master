@@ -27,33 +27,38 @@ Task.all = function(cb){
     var tasks = objects.map(function(o){
       return changePrototype(o);
     });
-
     cb(tasks);
   });
 };
 
 Task.findById = function(id, cb){
   var _id = Mongo.ObjectID(id);
-
   Task.collection.findOne({_id:_id}, function(err, obj){
     var task = changePrototype(obj);
-
     cb(task);
   });
 };
 
-Tast
-.deleteById = function(id, cb){
+Task.deleteById = function(id, cb){
   var _id = Mongo.ObjectID(id);
-
   Task.collection.findAndRemove({_id:_id}, cb);
 };
 
-Task.prototype.addTask = function(newTask, cb){
-
-  this.tasks.push(newTask);
-  Task.collection.update({_id:this._id}, {$push:{tasks:newTask}}, cb);
+Task.count = function(query, cb){
+  var filter = {};
+  if(query.filter){filter = {tags:{$in:[query.filter]}};}
+  Task.collection.count(filter, function(err, count){
+    cb(count);
+  });
 };
+
+Task.update = function(id, obj, cb){
+  var _id = Mongo.ObjectID(id);
+  var val = (obj.completed) ? true : false;
+  Task.collection.update({_id:_id}, {$set:{isComplete:val}}, cb);
+};
+
+
 
 module.exports = Task;
 

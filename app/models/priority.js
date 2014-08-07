@@ -6,7 +6,7 @@ var _ = require('lodash');
 function Priority(o){
   this.name = o.name;
   this.color = o.color;
-  this.value = o.value;
+  this.value = o.value * 1;
 }
 
 Object.defineProperty(Priority, 'collection', {

@@ -9,7 +9,9 @@ var dbConnect = require('../../app/lib/mongodb');
 var Mongo = require('mongodb');
 
 var p1, p2, p3;
-var o1 = {name:'high', color:'red', value:'3'};
+var o1 = {name:'high', color:'#D63333', value:'3'};
+var o2 = {name:'medium', color:'#FFFF59', value:'2'};
+var o3 = {name:'low', color:'#4DB8FF', value:'1'};
 
 describe('Priority', function(){
   before(function(done){
@@ -21,8 +23,8 @@ describe('Priority', function(){
   beforeEach(function(done){
     Priority.collection.remove(function(){
       p1 = new Priority(o1);
-      p2 = new Priority({name:'medium', color:'yellow', value:'2'});
-      p3 = new Priority({name:'low', color:'blue', value:'1'});
+      p2 = new Priority(o2);
+      p3 = new Priority(o3);
       p1.insert(function(){
         p2.insert(function(){
           p3.insert(function(){
@@ -38,7 +40,7 @@ describe('Priority', function(){
       p1 = new Priority(o1);
       expect(p1).to.be.instanceof(Priority);
       expect(p1.name).to.equal('high');
-      expect(p1.color).to.equal('red');
+      expect(p1.color).to.equal('#D63333');
     });
   });
 

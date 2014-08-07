@@ -1,16 +1,22 @@
 'use strict';
 
-var Mongo = require('mongodb');
 var _ = require('lodash');
-
-function Task(o){
-  this.name = o.name;
-  this.tasks = [];
-}
+var Mongo = require('mongodb');
+var async = require('async');
+var Priority = require('./priority');
 
 Object.defineProperty(Task, 'collection', {
   get: function(){return global.mongodb.collection('tasks');}
 });
+
+function Task(o){
+  this.name = o.name;
+  this.due = new Date(o.due);
+  this.photo = o.photo;
+  this.tags = o.tags.split(',').map(function(s){return s.trim();});
+  this.priorityId = Mongo.ObjectID(o.priorityId);
+  this.isComplete = false;
+}
 
 Task.prototype.insert = function(cb){
   Task.collection.save(this, cb);
@@ -36,7 +42,8 @@ Task.findById = function(id, cb){
   });
 };
 
-Task.deleteById = function(id, cb){
+Tast
+.deleteById = function(id, cb){
   var _id = Mongo.ObjectID(id);
 
   Task.collection.findAndRemove({_id:_id}, cb);
